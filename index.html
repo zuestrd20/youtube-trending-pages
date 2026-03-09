@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube 熱門影片 - Execution #40</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", "Arial", sans-serif;
+            background-color: #0f0f0f;
+            color: #f1f1f1;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #212121;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .header .info {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            background-color: #0f0f0f;
+        }
+
+        .tab-button {
+            background-color: #272727;
+            color: #f1f1f1;
+            border: none;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .tab-button:hover {
+            background-color: #3f3f3f;
+        }
+
+        .tab-button.active {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background-color: #212121;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .thumbnail-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rank-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff0000;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .video-info {
+            padding: 12px;
+        }
+
+        .video-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-channel {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 16px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .tabs {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📺 YouTube 熱門影片排行榜</h1>
+        <div class="info">
+            執行次數：#40 | 更新時間：2026-03-09T10:29:37.708394Z
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="switchTab('TW')">🇹🇼 台灣</button>
+        <button class="tab-button" onclick="switchTab('US')">🇺🇸 美國</button>
+    </div>
+    <div id="tab-TW" class="tab-content active">
+        <div class="no-data">目前沒有可用的資料</div>
+    </div>
+    <div id="tab-US" class="tab-content ">
+        <div class="no-data">目前沒有可用的資料</div>
+    </div>
+
+    <script>
+        function switchTab(region) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById('tab-' + region).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
