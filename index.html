@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube 熱門影片 - Execution #40</title>
+    <title>📺 YouTube 熱門影片排行榜 - Execution #40</title>
     <style>
         * {
             margin: 0;
@@ -12,49 +12,59 @@
         }
 
         body {
-            font-family: "Roboto", "Arial", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #0f0f0f;
             color: #f1f1f1;
             line-height: 1.6;
         }
 
-        .header {
-            background-color: #212121;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
-        .header h1 {
-            font-size: 24px;
-            font-weight: 500;
-            margin-bottom: 10px;
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #272727;
+            margin-bottom: 30px;
         }
 
-        .header .info {
-            font-size: 14px;
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .meta-info {
             color: #aaa;
+            font-size: 0.95em;
+            margin-top: 10px;
+        }
+
+        .meta-info span {
+            margin: 0 15px;
+            display: inline-block;
         }
 
         .tabs {
             display: flex;
-            gap: 10px;
-            padding: 20px;
-            background-color: #0f0f0f;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .tab-button {
+            padding: 12px 30px;
             background-color: #272727;
             color: #f1f1f1;
             border: none;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
             border-radius: 8px;
-            transition: background-color 0.2s;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .tab-button:hover {
@@ -68,46 +78,47 @@
 
         .tab-content {
             display: none;
-            padding: 20px;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        .region-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff0000;
+        }
+
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
-            max-width: 1800px;
-            margin: 0 auto;
+            margin-top: 20px;
         }
 
         .video-card {
-            background-color: #212121;
+            background-color: #1a1a1a;
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
         }
 
         .video-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
         }
 
         .thumbnail-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%;
-            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
             background-color: #000;
         }
 
-        .thumbnail-container img {
+        .thumbnail {
             position: absolute;
             top: 0;
             left: 0;
@@ -122,101 +133,174 @@
             left: 10px;
             background-color: #ff0000;
             color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
             font-weight: bold;
-            font-size: 18px;
-            padding: 6px 12px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-size: 1.1em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .video-info {
-            padding: 12px;
+            padding: 15px;
         }
 
         .video-title {
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #f1f1f1;
             margin-bottom: 8px;
-            line-height: 1.4;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            line-height: 1.4;
         }
 
         .video-channel {
-            font-size: 12px;
             color: #aaa;
-            margin-bottom: 8px;
+            font-size: 0.9em;
+            margin-bottom: 5px;
         }
 
-        .video-stats {
+        .video-date {
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .stats {
             display: flex;
-            gap: 16px;
-            font-size: 12px;
+            gap: 15px;
+            margin-top: 8px;
+            font-size: 0.85em;
             color: #aaa;
         }
 
-        .stat {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .no-data {
+        footer {
             text-align: center;
-            padding: 60px 20px;
-            color: #aaa;
-            font-size: 16px;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 1px solid #272727;
+            color: #666;
         }
 
         @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
             .video-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 16px;
+                grid-template-columns: 1fr;
             }
 
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .tabs {
-                padding: 16px;
+            .meta-info span {
+                display: block;
+                margin: 5px 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>📺 YouTube 熱門影片排行榜</h1>
-        <div class="info">
-            執行次數：#40 | 更新時間：2026-03-09T10:29:37.708394Z
-        </div>
-    </div>
+    <div class="container">
+        <header>
+            <h1>📺 YouTube 熱門影片排行榜</h1>
+            <div class="meta-info">
+                <span>🔄 執行次數: #40</span>
+                <span>🕐 更新時間: 2026-03-09 10:41 UTC</span>
+            </div>
+        </header>
 
-    <div class="tabs">
-        <button class="tab-button active" onclick="switchTab('TW')">🇹🇼 台灣</button>
-        <button class="tab-button" onclick="switchTab('US')">🇺🇸 美國</button>
-    </div>
-    <div id="tab-TW" class="tab-content active">
-        <div class="no-data">目前沒有可用的資料</div>
-    </div>
-    <div id="tab-US" class="tab-content ">
-        <div class="no-data">目前沒有可用的資料</div>
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('TW')">🇹🇼 台灣 (16)</button>
+            <button class="tab-button" onclick="switchTab('US')">🇺🇸 美國 (20)</button>
+        </div>
+
+        <div id="TW" class="tab-content active">
+            <h2 class="region-title">🇹🇼 台灣熱門影片 Top 16</h2>
+            <div class="video-grid" id="tw-grid"></div>
+        </div>
+
+        <div id="US" class="tab-content">
+            <h2 class="region-title">🇺🇸 美國熱門影片 Top 20</h2>
+            <div class="video-grid" id="us-grid"></div>
+        </div>
+
+        <footer>
+            <p>資料來源: YouTube Data API | 自動更新: 每日 10:30 UTC</p>
+            <p>Powered by Nebula Automation | Execution #40</p>
+        </footer>
     </div>
 
     <script>
-        function switchTab(region) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
+        // Load trending data
+        fetch('trending.json')
+            .then(response => response.json())
+            .then(data => {
+                renderVideos('tw-grid', data.regions.TW.videos);
+                renderVideos('us-grid', data.regions.US.videos);
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                document.getElementById('tw-grid').innerHTML = '<p style="color: #666;">載入資料時發生錯誤</p>';
+                document.getElementById('us-grid').innerHTML = '<p style="color: #666;">載入資料時發生錯誤</p>';
             });
 
+        function renderVideos(gridId, videos) {
+            const grid = document.getElementById(gridId);
+
+            if (!videos || videos.length === 0) {
+                grid.innerHTML = '<p style="color: #666;">目前沒有可用的影片資料</p>';
+                return;
+            }
+
+            grid.innerHTML = videos.map(video => `
+                <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" style="text-decoration: none; color: inherit;">
+                    <div class="video-card">
+                        <div class="thumbnail-container">
+                            <img src="${video.thumbnail}" alt="${escapeHtml(video.title)}" class="thumbnail">
+                            <div class="rank-badge">#${video.rank}</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${escapeHtml(video.title)}</div>
+                            <div class="video-channel">📺 ${escapeHtml(video.channel)}</div>
+                            <div class="video-date">📅 ${formatDate(video.published_at)}</div>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function switchTab(region) {
+            // Update tab buttons
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
-
-            document.getElementById('tab-' + region).classList.add('active');
             event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(region).classList.add('active');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return '今天';
+            if (diffDays === 1) return '昨天';
+            if (diffDays < 7) return `${diffDays} 天前`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} 週前`;
+            if (diffDays < 365) return `${Math.floor(diffDays / 30)} 個月前`;
+            return `${Math.floor(diffDays / 365)} 年前`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
     </script>
 </body>
